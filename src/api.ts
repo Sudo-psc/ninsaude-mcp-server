@@ -629,6 +629,33 @@ export class NinsaudeAPI {
         }
     }
 
+    // ==================== MEDICAMENTOS (2 métodos - SOMENTE LEITURA) ====================
+    public async listMedicamentos(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.nome) params.append('nome', filters.nome);
+            if (filters.laboratorio) params.append('laboratorio', filters.laboratorio);
+            if (filters.principioAtivo) params.append('principioAtivo', filters.principioAtivo);
+            if (filters.ativo !== undefined) params.append('ativo', String(filters.ativo));
+
+            const response = await this.client.get('/medicamento/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getMedicamento(id: string) {
+        try {
+            const response = await this.client.get(`/medicamento/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
     private handleError(error: any) {
         if (axios.isAxiosError(error)) {
             console.error('API Error:', error.response?.status, error.response?.data);

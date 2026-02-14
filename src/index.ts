@@ -567,6 +567,30 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                         id: z.string().describe('Product ID'),
                     })
                 )
+            },
+            // ========== MEDICAMENTOS (2 ferramentas - SOMENTE LEITURA) ==========
+            {
+                name: 'list_medicamentos',
+                description: 'List medications from Ninsaúde central database (READ-ONLY)',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        nome: z.string().optional().describe('Medication name'),
+                        laboratorio: z.string().optional().describe('Laboratory/manufacturer'),
+                        principioAtivo: z.string().optional().describe('Active ingredient'),
+                        ativo: z.number().optional().describe('Active status: 0=Inactive, 1=Active'),
+                    })
+                )
+            },
+            {
+                name: 'get_medicamento',
+                description: 'Get details of a specific medication from central database',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        id: z.string().describe('Medication ID'),
+                    })
+                )
             }
         ],
     };
@@ -994,6 +1018,22 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             case 'get_produto_estoque': {
                 const args = request.params.arguments as { id: string };
                 const result = await api.getProdutoEstoque(args.id);
+                return {
+                    content: [{ type: 'text', text: JSON.stringify(result, null, 2) }]
+                }
+            }
+
+            // ========== MEDICAMENTOS (2 handlers - SOMENTE LEITURA) ==========
+            case 'list_medicamentos': {
+                const args = request.params.arguments || {};
+                const result = await api.listMedicamentos(args);
+                return {
+                    content: [{ type: 'text', text: JSON.stringify(result, null, 2) }]
+                }
+            }
+            case 'get_medicamento': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.getMedicamento(args.id);
                 return {
                     content: [{ type: 'text', text: JSON.stringify(result, null, 2) }]
                 }
