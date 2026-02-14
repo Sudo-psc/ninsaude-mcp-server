@@ -507,7 +507,56 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                     })
                 )
             },
-            // ========== PRONTUÁRIOS (3 ferramentas) ==========
+            // ========== PRONTUÁRIOS (5 ferramentas) ==========
+            {
+                name: 'create_prontuario',
+                description: 'Create a new medical record (prontuário)',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        paciente: z.number().describe('Patient ID (required)'),
+                        profissional: z.number().describe('Professional ID (required)'),
+                        data: z.string().describe('Date YYYY-MM-DD (required)'),
+                        hora: z.string().describe('Time HH:MM:SS (required)'),
+                        cid: z.string().optional().describe('CID code'),
+                        cid2: z.string().optional().describe('Secondary CID code'),
+                        cid3: z.string().optional().describe('Tertiary CID code'),
+                        cid4: z.string().optional().describe('Quaternary CID code'),
+                        horaInicial: z.string().optional().describe('Start time HH:MM:SS'),
+                        duracao: z.number().optional().describe('Duration in minutes'),
+                        encerrado: z.number().optional().describe('Closed status: 0=Open, 1=Closed'),
+                        confidencial: z.number().optional().describe('Confidential: 0=No, 1=Yes'),
+                        retornoDia: z.number().optional().describe('Return days'),
+                        retornoImportante: z.number().optional().describe('Important return: 0=No, 1=Yes'),
+                        note: z.string().optional().describe('Notes'),
+                        queixaPrincipal: z.string().optional().describe('Main complaint'),
+                        historiaDoenca: z.string().optional().describe('Disease history'),
+                        exameFisico: z.string().optional().describe('Physical examination'),
+                        diagnostico: z.string().optional().describe('Diagnosis'),
+                        conduta: z.string().optional().describe('Treatment plan'),
+                    })
+                )
+            },
+            {
+                name: 'update_prontuario',
+                description: 'Update an existing medical record',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        id: z.string().describe('Medical record ID (required)'),
+                        cid: z.string().optional().describe('CID code'),
+                        cid2: z.string().optional().describe('Secondary CID code'),
+                        cid3: z.string().optional().describe('Tertiary CID code'),
+                        cid4: z.string().optional().describe('Quaternary CID code'),
+                        data: z.string().optional().describe('Date YYYY-MM-DD'),
+                        horaInicial: z.string().optional().describe('Start time HH:MM:SS'),
+                        duracao: z.number().optional().describe('Duration in minutes'),
+                        encerrado: z.number().optional().describe('Closed status: 0=Open, 1=Closed'),
+                        confidencial: z.number().optional().describe('Confidential: 0=No, 1=Yes'),
+                        retornoDia: z.number().optional().describe('Return days'),
+                        retornoImportante: z.number().optional().describe('Important return: 0=No, 1=Yes'),
+                        note: z.string().optional().describe('Notes'),
+                    })
+                )
+            },
             {
                 name: 'list_prontuarios',
                 description: 'List medical records',
@@ -565,6 +614,37 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                 inputSchema: zodToJSONSchema(
                     z.object({
                         id: z.string().describe('Product ID'),
+                    })
+                )
+            },
+            // ========== TÍTULOS DE TRANSFERÊNCIAS (3 ferramentas) ==========
+            {
+                name: 'list_titulos_transferencias',
+                description: 'List financial transfer titles/records',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        transacao: z.number().optional().describe('Transaction ID'),
+                    })
+                )
+            },
+            {
+                name: 'add_titulos_lote',
+                description: 'Add multiple financial titles in batch',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        receita: z.array(z.number()).optional().describe('Array of income IDs'),
+                        despesa: z.array(z.number()).optional().describe('Array of expense IDs'),
+                    })
+                )
+            },
+            {
+                name: 'get_titulo_transferencia',
+                description: 'Get details of a specific financial transfer title',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        id: z.string().describe('Title ID'),
                     })
                 )
             },
@@ -984,7 +1064,22 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                 }
             }
 
-            // ========== PRONTUÁRIOS (3 handlers) ==========
+            // ========== PRONTUÁRIOS (5 handlers) ==========
+            case 'create_prontuario': {
+                const args = request.params.arguments as any;
+                const result = await api.createProntuario(args);
+                return {
+                    content: [{ type: 'text', text: JSON.stringify(result, null, 2) }]
+                }
+            }
+            case 'update_prontuario': {
+                const args = request.params.arguments as any;
+                const { id, ...data } = args;
+                const result = await api.updateProntuario(id, data);
+                return {
+                    content: [{ type: 'text', text: JSON.stringify(result, null, 2) }]
+                }
+            }
             case 'list_prontuarios': {
                 const args = request.params.arguments || {};
                 const result = await api.listProntuarios(args);
@@ -1018,6 +1113,29 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             case 'get_produto_estoque': {
                 const args = request.params.arguments as { id: string };
                 const result = await api.getProdutoEstoque(args.id);
+                return {
+                    content: [{ type: 'text', text: JSON.stringify(result, null, 2) }]
+                }
+            }
+
+            // ========== TÍTULOS DE TRANSFERÊNCIAS (3 handlers) ==========
+            case 'list_titulos_transferencias': {
+                const args = request.params.arguments || {};
+                const result = await api.listTitulosTransferencias(args);
+                return {
+                    content: [{ type: 'text', text: JSON.stringify(result, null, 2) }]
+                }
+            }
+            case 'add_titulos_lote': {
+                const args = request.params.arguments as any;
+                const result = await api.addTitulosLote(args);
+                return {
+                    content: [{ type: 'text', text: JSON.stringify(result, null, 2) }]
+                }
+            }
+            case 'get_titulo_transferencia': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.getTituloTransferencia(args.id);
                 return {
                     content: [{ type: 'text', text: JSON.stringify(result, null, 2) }]
                 }

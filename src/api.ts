@@ -570,7 +570,25 @@ export class NinsaudeAPI {
         }
     }
 
-    // ==================== PRONTUÁRIOS (3 métodos) ====================
+    // ==================== PRONTUÁRIOS (5 métodos) ====================
+    public async createProntuario(data: any) {
+        try {
+            const response = await this.client.post('/prontuario_geral', data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async updateProntuario(id: string, data: any) {
+        try {
+            const response = await this.client.put(`/prontuario_geral/${id}`, data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
     public async listProntuarios(filters: any = {}) {
         try {
             const params = new URLSearchParams();
@@ -589,15 +607,6 @@ export class NinsaudeAPI {
     public async getProntuario(id: string) {
         try {
             const response = await this.client.get(`/prontuario_prontuario/${id}`);
-            return response.data;
-        } catch (error) {
-            this.handleError(error);
-        }
-    }
-
-    public async createProntuario(data: any) {
-        try {
-            const response = await this.client.post('/prontuario_prontuario', data);
             return response.data;
         } catch (error) {
             this.handleError(error);
@@ -623,6 +632,39 @@ export class NinsaudeAPI {
     public async getProdutoEstoque(id: string) {
         try {
             const response = await this.client.get(`/cadastro_produto/${id}/estoque`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== TÍTULOS DE TRANSFERÊNCIAS (3 métodos) ====================
+    public async listTitulosTransferencias(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.transacao) params.append('transacao', String(filters.transacao));
+
+            const response = await this.client.get('/zapp_conciliacao2transacaotitulo/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async addTitulosLote(data: any) {
+        try {
+            const response = await this.client.post('/zapp_conciliacao2transacaotitulo/adicionar/titulo/lote', data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getTituloTransferencia(id: string) {
+        try {
+            const response = await this.client.get(`/zapp_conciliacao2transacaotitulo/${id}`);
             return response.data;
         } catch (error) {
             this.handleError(error);
