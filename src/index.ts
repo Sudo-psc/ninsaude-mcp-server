@@ -671,7 +671,521 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                         id: z.string().describe('Medication ID'),
                     })
                 )
-            }
+            },
+            // ========== PRESCRIÇÕES DO PRONTUÁRIO (4 ferramentas) ==========
+            {
+                name: 'list_prontuario_prescricoes',
+                description: 'List prescriptions linked to medical records (prontuários)',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        prontuario: z.number().optional().describe('Medical record ID filter'),
+                        paciente: z.number().optional().describe('Patient ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'get_prontuario_prescricao',
+                description: 'Get details of a specific prescription by ID',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('Prescription ID') }))
+            },
+            {
+                name: 'create_prontuario_prescricao',
+                description: 'Create a new prescription in a medical record',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        prontuario: z.number().describe('Medical record ID (required)'),
+                        descricao: z.string().optional().describe('Prescription description/header'),
+                        validade: z.string().optional().describe('Validity date YYYY-MM-DD'),
+                        tipo: z.number().optional().describe('Type: 0=Simple, 1=Special control'),
+                    })
+                )
+            },
+            {
+                name: 'update_prontuario_prescricao',
+                description: 'Update an existing prescription',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        id: z.string().describe('Prescription ID (required)'),
+                        descricao: z.string().optional().describe('Prescription description/header'),
+                        validade: z.string().optional().describe('Validity date YYYY-MM-DD'),
+                        tipo: z.number().optional().describe('Type: 0=Simple, 1=Special control'),
+                    })
+                )
+            },
+            // ========== MEDICAMENTOS DA PRESCRIÇÃO (3 ferramentas) ==========
+            {
+                name: 'list_prescricao_medicamentos',
+                description: 'List medications within a prescription',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        prescricao: z.number().optional().describe('Prescription ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'create_prescricao_medicamento',
+                description: 'Add a medication item to a prescription',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        prescricao: z.number().describe('Prescription ID (required)'),
+                        medicamento: z.number().optional().describe('Medication ID from central database'),
+                        descricao: z.string().optional().describe('Free-text medication description'),
+                        posologia: z.string().optional().describe('Dosage instructions'),
+                        quantidade: z.number().optional().describe('Quantity'),
+                        unidade: z.string().optional().describe('Unit (e.g., caixa, comprimido)'),
+                    })
+                )
+            },
+            {
+                name: 'delete_prescricao_medicamento',
+                description: 'Remove a medication item from a prescription',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('Medication item ID') }))
+            },
+            // ========== NOTAS DO PRONTUÁRIO (4 ferramentas) ==========
+            {
+                name: 'list_prontuario_notas',
+                description: 'List clinical notes from medical records',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        prontuario: z.number().optional().describe('Medical record ID filter'),
+                        paciente: z.number().optional().describe('Patient ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'create_prontuario_nota',
+                description: 'Create a clinical note in a medical record',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        prontuario: z.number().describe('Medical record ID (required)'),
+                        nota: z.string().describe('Note content (required)'),
+                        tipo: z.number().optional().describe('Note type'),
+                    })
+                )
+            },
+            {
+                name: 'update_prontuario_nota',
+                description: 'Update a clinical note in a medical record',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        id: z.string().describe('Note ID (required)'),
+                        nota: z.string().optional().describe('Note content'),
+                        tipo: z.number().optional().describe('Note type'),
+                    })
+                )
+            },
+            {
+                name: 'delete_prontuario_nota',
+                description: 'Delete a clinical note from a medical record',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('Note ID') }))
+            },
+            // ========== ALERGIAS (4 ferramentas) ==========
+            {
+                name: 'list_alergias',
+                description: 'List patient allergies',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        paciente: z.number().optional().describe('Patient ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'create_alergia',
+                description: 'Register a patient allergy',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        paciente: z.number().describe('Patient ID (required)'),
+                        descricao: z.string().describe('Allergy description (required)'),
+                        tipo: z.number().optional().describe('Type: 0=Medication, 1=Food, 2=Environment, 3=Other'),
+                        gravidade: z.number().optional().describe('Severity: 0=Mild, 1=Moderate, 2=Severe'),
+                    })
+                )
+            },
+            {
+                name: 'update_alergia',
+                description: 'Update a patient allergy',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        id: z.string().describe('Allergy ID (required)'),
+                        descricao: z.string().optional().describe('Allergy description'),
+                        tipo: z.number().optional().describe('Type: 0=Medication, 1=Food, 2=Environment, 3=Other'),
+                        gravidade: z.number().optional().describe('Severity: 0=Mild, 1=Moderate, 2=Severe'),
+                    })
+                )
+            },
+            {
+                name: 'delete_alergia',
+                description: 'Delete a patient allergy record',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('Allergy ID') }))
+            },
+            // ========== DOCUMENTOS DO PRONTUÁRIO (2 ferramentas) ==========
+            {
+                name: 'list_prontuario_documentos',
+                description: 'List documents attached to medical records (exams, certificates, etc.)',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        prontuario: z.number().optional().describe('Medical record ID filter'),
+                        paciente: z.number().optional().describe('Patient ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'get_prontuario_documento',
+                description: 'Get a specific document from a medical record',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('Document ID') }))
+            },
+            // ========== ENCAMINHADORES (3 ferramentas) ==========
+            {
+                name: 'list_encaminhadores',
+                description: 'List referrers/referring physicians',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        nome: z.string().optional().describe('Name filter'),
+                        especialidade: z.number().optional().describe('Specialty ID filter'),
+                        ativo: z.number().optional().describe('Active status: 0=Inactive, 1=Active'),
+                    })
+                )
+            },
+            {
+                name: 'get_encaminhador',
+                description: 'Get referrer details by ID',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('Referrer ID') }))
+            },
+            {
+                name: 'create_encaminhador',
+                description: 'Create a new referrer/referring physician',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        nome: z.string().describe('Full name (required)'),
+                        crm: z.string().optional().describe('CRM council number'),
+                        especialidade: z.number().optional().describe('Specialty ID'),
+                        email: z.string().optional().describe('Email'),
+                        telefone: z.string().optional().describe('Phone'),
+                        ativo: z.number().optional().describe('Active: 0=Inactive, 1=Active'),
+                    })
+                )
+            },
+            // ========== SALAS (2 ferramentas) ==========
+            {
+                name: 'list_salas',
+                description: 'List clinic rooms',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        descricao: z.string().optional().describe('Room name filter'),
+                        ativo: z.number().optional().describe('Active status: 0=Inactive, 1=Active'),
+                    })
+                )
+            },
+            {
+                name: 'get_sala',
+                description: 'Get clinic room details by ID',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('Room ID') }))
+            },
+            // ========== TIPOS DE PAGAMENTO (2 ferramentas) ==========
+            {
+                name: 'list_tipos_pagamento',
+                description: 'List payment types (credit card, cash, PIX, etc.)',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        descricao: z.string().optional().describe('Description filter'),
+                        ativo: z.number().optional().describe('Active status: 0=Inactive, 1=Active'),
+                    })
+                )
+            },
+            {
+                name: 'get_tipo_pagamento',
+                description: 'Get payment type details by ID',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('Payment type ID') }))
+            },
+            // ========== ESPECIALIDADES (1 ferramenta) ==========
+            {
+                name: 'list_especialidades',
+                description: 'List medical specialties',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        lingua: z.string().optional().describe('Language code (e.g., pt-BR, en)'),
+                    })
+                )
+            },
+            // ========== CID - CÓDIGO DE DOENÇAS (2 ferramentas) ==========
+            {
+                name: 'list_cid',
+                description: 'Search CID-10 disease codes (International Classification of Diseases)',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        descricao: z.string().optional().describe('Disease description filter (e.g., "diabetes")'),
+                        codigo: z.string().optional().describe('CID code filter (e.g., "E11")'),
+                    })
+                )
+            },
+            {
+                name: 'get_cid',
+                description: 'Get details of a specific CID-10 disease code',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('CID ID') }))
+            },
+            // ========== CIDADE / CEP (2 ferramentas) ==========
+            {
+                name: 'buscar_endereco_por_cep',
+                description: 'Look up a Brazilian address by ZIP code (CEP)',
+                inputSchema: zodToJSONSchema(
+                    z.object({ cep: z.string().describe('Brazilian ZIP (CEP) without dashes, e.g.: 01310100') })
+                )
+            },
+            {
+                name: 'list_cidades',
+                description: 'List cities, optionally filtered by state/country',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        nome: z.string().optional().describe('City name filter'),
+                        pais: z.number().optional().describe('Country ID (required together with estado)'),
+                        estado: z.string().optional().describe('State code (required together with pais)'),
+                    })
+                )
+            },
+            // ========== TRANSFERÊNCIAS FINANCEIRAS (3 ferramentas) ==========
+            {
+                name: 'list_transferencias',
+                description: 'List financial transfers between accounts',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        dataInicial: z.string().optional().describe('Start date YYYY-MM-DD'),
+                        dataFinal: z.string().optional().describe('End date YYYY-MM-DD'),
+                        contaOrigem: z.number().optional().describe('Source account ID'),
+                        contaDestino: z.number().optional().describe('Destination account ID'),
+                    })
+                )
+            },
+            {
+                name: 'create_transferencia',
+                description: 'Create a financial transfer between two accounts',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        contaOrigem: z.number().describe('Source account ID (required)'),
+                        contaDestino: z.number().describe('Destination account ID (required)'),
+                        valor: z.number().describe('Transfer amount (required)'),
+                        data: z.string().describe('Transfer date YYYY-MM-DD (required)'),
+                        observacao: z.string().optional().describe('Notes'),
+                    })
+                )
+            },
+            {
+                name: 'get_transferencia',
+                description: 'Get details of a specific financial transfer',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('Transfer ID') }))
+            },
+            // ========== ESTOQUE: DEPÓSITOS (2 ferramentas) ==========
+            {
+                name: 'list_depositos',
+                description: 'List stock deposits/warehouses',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        accountUnidade: z.number().optional().describe('Unit ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'get_deposito',
+                description: 'Get stock deposit/warehouse details by ID',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('Deposit ID') }))
+            },
+            // ========== ESTOQUE: MOVIMENTAÇÕES (2 ferramentas) ==========
+            {
+                name: 'list_movimentacoes_estoque',
+                description: 'List stock movements (entries, exits, transfers)',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        dataInicial: z.string().optional().describe('Start date YYYY-MM-DD'),
+                        dataFinal: z.string().optional().describe('End date YYYY-MM-DD'),
+                        produto: z.number().optional().describe('Product ID filter'),
+                        depositoOrigem: z.number().optional().describe('Source deposit ID'),
+                        depositoDestino: z.number().optional().describe('Destination deposit ID'),
+                        accountUnidade: z.number().optional().describe('Unit ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'create_movimentacao_estoque',
+                description: 'Create a stock movement (entry, exit or internal transfer)',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        produto: z.number().describe('Product ID (required)'),
+                        depositoOrigem: z.number().optional().describe('Source deposit ID'),
+                        depositoDestino: z.number().optional().describe('Destination deposit ID'),
+                        quantidade: z.number().describe('Quantity (required)'),
+                        tipo: z.number().describe('Type: 0=Entry, 1=Exit, 2=Transfer (required)'),
+                        data: z.string().describe('Date YYYY-MM-DD (required)'),
+                        observacao: z.string().optional().describe('Notes'),
+                        valorUnitario: z.number().optional().describe('Unit cost'),
+                    })
+                )
+            },
+            // ========== RELATÓRIOS DE ATENDIMENTO (8 ferramentas) ==========
+            {
+                name: 'get_atendimento_sobrecarga_report',
+                description: 'Get appointment overload/workload report by professional and date range',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        dataInicial: z.string().describe('Start date YYYY-MM-DD (required)'),
+                        dataFinal: z.string().describe('End date YYYY-MM-DD (required)'),
+                        profissional: z.number().optional().describe('Professional ID filter'),
+                        accountUnidade: z.number().optional().describe('Unit ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'get_atendimento_sazonalidade',
+                description: 'Get appointment seasonality report (monthly/weekly trends)',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        dataInicial: z.string().describe('Start date YYYY-MM-DD (required)'),
+                        dataFinal: z.string().describe('End date YYYY-MM-DD (required)'),
+                        profissional: z.number().optional().describe('Professional ID filter'),
+                        accountUnidade: z.number().optional().describe('Unit ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'get_atendimento_sexo_pacientes',
+                description: 'Get patient gender distribution report for appointments',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        dataInicial: z.string().describe('Start date YYYY-MM-DD (required)'),
+                        dataFinal: z.string().describe('End date YYYY-MM-DD (required)'),
+                        profissional: z.number().optional().describe('Professional ID filter'),
+                        accountUnidade: z.number().optional().describe('Unit ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'get_atendimento_horarios_pico',
+                description: 'Get peak appointment hours report',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        dataInicial: z.string().describe('Start date YYYY-MM-DD (required)'),
+                        dataFinal: z.string().describe('End date YYYY-MM-DD (required)'),
+                        profissional: z.number().optional().describe('Professional ID filter'),
+                        accountUnidade: z.number().optional().describe('Unit ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'get_atendimento_servicos_mais_vendidos',
+                description: 'Get most sold medical services report',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        dataInicial: z.string().describe('Start date YYYY-MM-DD (required)'),
+                        dataFinal: z.string().describe('End date YYYY-MM-DD (required)'),
+                        profissional: z.number().optional().describe('Professional ID filter'),
+                        accountUnidade: z.number().optional().describe('Unit ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'get_atendimento_convenios_mais_vendidos',
+                description: 'Get most used health insurance plans report',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        dataInicial: z.string().describe('Start date YYYY-MM-DD (required)'),
+                        dataFinal: z.string().describe('End date YYYY-MM-DD (required)'),
+                        accountUnidade: z.number().optional().describe('Unit ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'get_atendimento_quantidades',
+                description: 'Get appointment counts report (attended, missed, cancelled, rescheduled)',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        dataInicial: z.string().describe('Start date YYYY-MM-DD (required)'),
+                        dataFinal: z.string().describe('End date YYYY-MM-DD (required)'),
+                        profissional: z.number().optional().describe('Professional ID filter'),
+                        accountUnidade: z.number().optional().describe('Unit ID filter'),
+                    })
+                )
+            },
+            {
+                name: 'get_total_pacientes',
+                description: 'Get overall patient totals summary',
+                inputSchema: zodToJSONSchema(z.object({}))
+            },
+            // ========== NOTAS FISCAIS (4 ferramentas) ==========
+            {
+                name: 'list_notas_fiscais',
+                description: 'List electronic invoices (NFS-e) with optional date or status filter',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                        dataInicial: z.string().optional().describe('Start date YYYY-MM-DD'),
+                        dataFinal: z.string().optional().describe('End date YYYY-MM-DD'),
+                        status: z.number().optional().describe('Status filter (e.g., 0=pending, 1=issued, 2=cancelled)'),
+                    })
+                )
+            },
+            {
+                name: 'get_nota_fiscal_estatisticas',
+                description: 'Get electronic invoice statistics (totals, values)',
+                inputSchema: zodToJSONSchema(z.object({}))
+            },
+            {
+                name: 'cancelar_nota_fiscal',
+                description: 'Cancel an electronic invoice (NFS-e) by ID',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('NFS-e ID') }))
+            },
+            {
+                name: 'enviar_nota_fiscal_email',
+                description: 'Send an electronic invoice (NFS-e) by email to the patient',
+                inputSchema: zodToJSONSchema(z.object({ id: z.string().describe('NFS-e ID') }))
+            },
+            // ========== COBRANÇAS NINSAÚDE PAY (3 ferramentas) ==========
+            {
+                name: 'list_cobrancas',
+                description: 'List Ninsaúde Pay charges/billing links',
+                inputSchema: zodToJSONSchema(
+                    z.object({
+                        limit: z.number().optional(),
+                        offset: z.number().optional(),
+                    })
+                )
+            },
+            {
+                name: 'get_cobranca',
+                description: 'Get details of a specific Ninsaúde Pay charge',
+                inputSchema: zodToJSONSchema(z.object({ cobrancaId: z.string().describe('Charge ID') }))
+            },
+            {
+                name: 'get_link_cobranca',
+                description: 'Get the payment link for a Ninsaúde Pay charge',
+                inputSchema: zodToJSONSchema(z.object({ cobrancaId: z.string().describe('Charge ID') }))
+            },
         ],
     };
 });
@@ -1155,6 +1669,296 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                 return {
                     content: [{ type: 'text', text: JSON.stringify(result, null, 2) }]
                 }
+            }
+
+            // ========== PRESCRIÇÕES DO PRONTUÁRIO ==========
+            case 'list_prontuario_prescricoes': {
+                const args = request.params.arguments || {};
+                const result = await api.listProntuarioPrescricoes(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_prontuario_prescricao': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.getProntuarioPrescricao(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'create_prontuario_prescricao': {
+                const args = request.params.arguments as any;
+                const result = await api.createProntuarioPrescricao(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'update_prontuario_prescricao': {
+                const args = request.params.arguments as any;
+                const { id, ...data } = args;
+                const result = await api.updateProntuarioPrescricao(id, data);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== MEDICAMENTOS DA PRESCRIÇÃO ==========
+            case 'list_prescricao_medicamentos': {
+                const args = request.params.arguments || {};
+                const result = await api.listPrescricaoMedicamentos(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'create_prescricao_medicamento': {
+                const args = request.params.arguments as any;
+                const result = await api.createPrescricaoMedicamento(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'delete_prescricao_medicamento': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.deletePrescricaoMedicamento(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== NOTAS DO PRONTUÁRIO ==========
+            case 'list_prontuario_notas': {
+                const args = request.params.arguments || {};
+                const result = await api.listProntuarioNotas(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'create_prontuario_nota': {
+                const args = request.params.arguments as any;
+                const result = await api.createProntuarioNota(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'update_prontuario_nota': {
+                const args = request.params.arguments as any;
+                const { id, ...data } = args;
+                const result = await api.updateProntuarioNota(id, data);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'delete_prontuario_nota': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.deleteProntuarioNota(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== ALERGIAS ==========
+            case 'list_alergias': {
+                const args = request.params.arguments || {};
+                const result = await api.listAlergias(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'create_alergia': {
+                const args = request.params.arguments as any;
+                const result = await api.createAlergia(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'update_alergia': {
+                const args = request.params.arguments as any;
+                const { id, ...data } = args;
+                const result = await api.updateAlergia(id, data);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'delete_alergia': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.deleteAlergia(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== DOCUMENTOS DO PRONTUÁRIO ==========
+            case 'list_prontuario_documentos': {
+                const args = request.params.arguments || {};
+                const result = await api.listProntuarioDocumentos(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_prontuario_documento': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.getProntuarioDocumento(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== ENCAMINHADORES ==========
+            case 'list_encaminhadores': {
+                const args = request.params.arguments || {};
+                const result = await api.listEncaminhadores(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_encaminhador': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.getEncaminhador(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'create_encaminhador': {
+                const args = request.params.arguments as any;
+                const result = await api.createEncaminhador(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== SALAS ==========
+            case 'list_salas': {
+                const args = request.params.arguments || {};
+                const result = await api.listSalas(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_sala': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.getSala(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== TIPOS DE PAGAMENTO ==========
+            case 'list_tipos_pagamento': {
+                const args = request.params.arguments || {};
+                const result = await api.listTiposPagamento(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_tipo_pagamento': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.getTipoPagamento(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== ESPECIALIDADES ==========
+            case 'list_especialidades': {
+                const args = request.params.arguments || {};
+                const result = await api.listEspecialidades(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== CID ==========
+            case 'list_cid': {
+                const args = request.params.arguments || {};
+                const result = await api.listCid(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_cid': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.getCid(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== CIDADE / CEP ==========
+            case 'buscar_endereco_por_cep': {
+                const args = request.params.arguments as { cep: string };
+                const result = await api.buscarEnderecoPorCep(args.cep);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'list_cidades': {
+                const args = request.params.arguments || {};
+                const result = await api.listCidades(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== TRANSFERÊNCIAS FINANCEIRAS ==========
+            case 'list_transferencias': {
+                const args = request.params.arguments || {};
+                const result = await api.listTransferencias(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'create_transferencia': {
+                const args = request.params.arguments as any;
+                const result = await api.createTransferencia(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_transferencia': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.getTransferencia(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== ESTOQUE: DEPÓSITOS ==========
+            case 'list_depositos': {
+                const args = request.params.arguments || {};
+                const result = await api.listDepositos(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_deposito': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.getDeposito(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== ESTOQUE: MOVIMENTAÇÕES ==========
+            case 'list_movimentacoes_estoque': {
+                const args = request.params.arguments || {};
+                const result = await api.listMovimentacoesEstoque(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'create_movimentacao_estoque': {
+                const args = request.params.arguments as any;
+                const result = await api.createMovimentacaoEstoque(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== RELATÓRIOS DE ATENDIMENTO ==========
+            case 'get_atendimento_sobrecarga_report': {
+                const args = request.params.arguments as any;
+                const result = await api.getAtendimentoSobrecargaReport(args.dataInicial, args.dataFinal, args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_atendimento_sazonalidade': {
+                const args = request.params.arguments as any;
+                const result = await api.getAtendimentoSazonalidade(args.dataInicial, args.dataFinal, args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_atendimento_sexo_pacientes': {
+                const args = request.params.arguments as any;
+                const result = await api.getAtendimentoSexoPacientes(args.dataInicial, args.dataFinal, args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_atendimento_horarios_pico': {
+                const args = request.params.arguments as any;
+                const result = await api.getAtendimentoHorariosPico(args.dataInicial, args.dataFinal, args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_atendimento_servicos_mais_vendidos': {
+                const args = request.params.arguments as any;
+                const result = await api.getAtendimentoServicosMaisVendidos(args.dataInicial, args.dataFinal, args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_atendimento_convenios_mais_vendidos': {
+                const args = request.params.arguments as any;
+                const result = await api.getAtendimentoConveniosMaisVendidos(args.dataInicial, args.dataFinal, args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_atendimento_quantidades': {
+                const args = request.params.arguments as any;
+                const result = await api.getAtendimentoQuantidades(args.dataInicial, args.dataFinal, args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_total_pacientes': {
+                const result = await api.getTotalPacientes();
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== NOTAS FISCAIS ==========
+            case 'list_notas_fiscais': {
+                const args = request.params.arguments || {};
+                const result = await api.listNotasFiscais(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_nota_fiscal_estatisticas': {
+                const result = await api.getNotaFiscalEstatisticas();
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'cancelar_nota_fiscal': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.cancelarNotaFiscal(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'enviar_nota_fiscal_email': {
+                const args = request.params.arguments as { id: string };
+                const result = await api.enviarNotaFiscalEmail(args.id);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+
+            // ========== COBRANÇAS NINSAÚDE PAY ==========
+            case 'list_cobrancas': {
+                const args = request.params.arguments || {};
+                const result = await api.listCobrancas(args);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_cobranca': {
+                const args = request.params.arguments as { cobrancaId: string };
+                const result = await api.getCobranca(args.cobrancaId);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+            }
+            case 'get_link_cobranca': {
+                const args = request.params.arguments as { cobrancaId: string };
+                const result = await api.getLinkCobranca(args.cobrancaId);
+                return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
             }
 
             default:

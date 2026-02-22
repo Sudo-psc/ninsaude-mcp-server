@@ -698,6 +698,645 @@ export class NinsaudeAPI {
         }
     }
 
+    // ==================== PRESCRIÇÕES DO PRONTUÁRIO (4 métodos) ====================
+    public async listProntuarioPrescricoes(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.prontuario) params.append('prontuario[]', String(filters.prontuario));
+            if (filters.paciente) params.append('paciente[]', String(filters.paciente));
+
+            const response = await this.client.get('/prontuario_prescricao/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getProntuarioPrescricao(id: string) {
+        try {
+            const response = await this.client.get(`/prontuario_prescricao/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async createProntuarioPrescricao(data: any) {
+        try {
+            const response = await this.client.post('/prontuario_prescricao', data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async updateProntuarioPrescricao(id: string, data: any) {
+        try {
+            const response = await this.client.put(`/prontuario_prescricao/${id}`, data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== MEDICAMENTOS DA PRESCRIÇÃO (3 métodos) ====================
+    public async listPrescricaoMedicamentos(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.prescricao) params.append('prescricao[]', String(filters.prescricao));
+
+            const response = await this.client.get('/prontuario_prescricaomedicamento/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async createPrescricaoMedicamento(data: any) {
+        try {
+            const response = await this.client.post('/prontuario_prescricaomedicamento', data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async deletePrescricaoMedicamento(id: string) {
+        try {
+            const response = await this.client.delete(`/prontuario_prescricaomedicamento/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== NOTAS DO PRONTUÁRIO (4 métodos) ====================
+    public async listProntuarioNotas(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.prontuario) params.append('prontuario[]', String(filters.prontuario));
+            if (filters.paciente) params.append('paciente[]', String(filters.paciente));
+
+            const response = await this.client.get('/prontuario_nota/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async createProntuarioNota(data: any) {
+        try {
+            const response = await this.client.post('/prontuario_nota', data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async updateProntuarioNota(id: string, data: any) {
+        try {
+            const response = await this.client.put(`/prontuario_nota/${id}`, data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async deleteProntuarioNota(id: string) {
+        try {
+            const response = await this.client.delete(`/prontuario_nota/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== ALERGIAS DO PRONTUÁRIO (4 métodos) ====================
+    public async listAlergias(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.paciente) params.append('paciente[]', String(filters.paciente));
+
+            const response = await this.client.get('/prontuario_alergia/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async createAlergia(data: any) {
+        try {
+            const response = await this.client.post('/prontuario_alergia', data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async updateAlergia(id: string, data: any) {
+        try {
+            const response = await this.client.put(`/prontuario_alergia/${id}`, data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async deleteAlergia(id: string) {
+        try {
+            const response = await this.client.delete(`/prontuario_alergia/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== DOCUMENTOS DO PRONTUÁRIO (2 métodos) ====================
+    public async listProntuarioDocumentos(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.prontuario) params.append('prontuario[]', String(filters.prontuario));
+            if (filters.paciente) params.append('paciente[]', String(filters.paciente));
+
+            const response = await this.client.get('/prontuario_documento/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getProntuarioDocumento(id: string) {
+        try {
+            const response = await this.client.get(`/prontuario_documento/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== ENCAMINHADORES (3 métodos) ====================
+    public async listEncaminhadores(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.nome) params.append('nome', filters.nome);
+            if (filters.especialidade) params.append('especialidade[]', String(filters.especialidade));
+            if (filters.ativo !== undefined) params.append('ativo', String(filters.ativo));
+
+            const response = await this.client.get('/cadastro_encaminhador/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getEncaminhador(id: string) {
+        try {
+            const response = await this.client.get(`/cadastro_encaminhador/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async createEncaminhador(data: any) {
+        try {
+            const response = await this.client.post('/cadastro_encaminhador', data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== SALAS (2 métodos) ====================
+    public async listSalas(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.descricao) params.append('descricao', filters.descricao);
+            if (filters.ativo !== undefined) params.append('ativo', String(filters.ativo));
+
+            const response = await this.client.get('/cadastro_sala/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getSala(id: string) {
+        try {
+            const response = await this.client.get(`/cadastro_sala/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== TIPOS DE PAGAMENTO (2 métodos) ====================
+    public async listTiposPagamento(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.descricao) params.append('descricao', filters.descricao);
+            if (filters.ativo !== undefined) params.append('ativo', String(filters.ativo));
+
+            const response = await this.client.get('/cadastro_tipopagto/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getTipoPagamento(id: string) {
+        try {
+            const response = await this.client.get(`/cadastro_tipopagto/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== ESPECIALIDADES (1 método) ====================
+    public async listEspecialidades(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.lingua) params.append('lingua', filters.lingua);
+
+            const response = await this.client.get('/especialidade/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== CID - CÓDIGO DE DOENÇAS (2 métodos) ====================
+    public async listCid(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.descricao) params.append('descricao', filters.descricao);
+            if (filters.codigo) params.append('codigo', filters.codigo);
+
+            const response = await this.client.get('/cid/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getCid(id: string) {
+        try {
+            const response = await this.client.get(`/cid/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== CIDADE / CEP (2 métodos) ====================
+    public async buscarEnderecoPorCep(cep: string) {
+        try {
+            const response = await this.client.get(`/cidade/abrir/endereco/cep/${cep}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async listCidades(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.nome) params.append('nome', filters.nome);
+
+            let url = '/cidade/listar';
+            if (filters.pais && filters.estado) {
+                url = `/cidade/listar/pais/${filters.pais}/estado/${filters.estado}`;
+            }
+
+            const response = await this.client.get(url, { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== TRANSFERÊNCIAS FINANCEIRAS (3 métodos) ====================
+    public async listTransferencias(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.dataInicial) params.append('dataInicial', filters.dataInicial);
+            if (filters.dataFinal) params.append('dataFinal', filters.dataFinal);
+            if (filters.contaOrigem) params.append('contaOrigem[]', String(filters.contaOrigem));
+            if (filters.contaDestino) params.append('contaDestino[]', String(filters.contaDestino));
+
+            const response = await this.client.get('/fluxo_transferencia/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async createTransferencia(data: any) {
+        try {
+            const response = await this.client.post('/fluxo_transferencia', data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getTransferencia(id: string) {
+        try {
+            const response = await this.client.get(`/fluxo_transferencia/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== ESTOQUE: DEPÓSITOS (2 métodos) ====================
+    public async listDepositos(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+
+            let url = '/estoque_deposito/listar';
+            if (filters.accountUnidade) {
+                url = `/estoque_deposito/listar/accountUnidade/${filters.accountUnidade}`;
+            }
+
+            const response = await this.client.get(url, { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getDeposito(id: string) {
+        try {
+            const response = await this.client.get(`/estoque_deposito/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== ESTOQUE: MOVIMENTAÇÕES (2 métodos) ====================
+    public async listMovimentacoesEstoque(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+            if (filters.dataInicial) params.append('dataInicial', filters.dataInicial);
+            if (filters.dataFinal) params.append('dataFinal', filters.dataFinal);
+
+            let url = '/estoque_movimentacao/listar';
+            if (filters.produto && filters.depositoOrigem && filters.depositoDestino) {
+                url = `/estoque_movimentacao/listar/produto/${filters.produto}/depositoOrigem/${filters.depositoOrigem}/depositoDestino/${filters.depositoDestino}`;
+            } else if (filters.produto && filters.depositoOrigem) {
+                url = `/estoque_movimentacao/listar/produto/${filters.produto}/depositoOrigem/${filters.depositoOrigem}`;
+            } else if (filters.produto && filters.accountUnidade) {
+                url = `/estoque_movimentacao/listar/produto/${filters.produto}/accountUnidade/${filters.accountUnidade}`;
+            }
+
+            const response = await this.client.get(url, { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async createMovimentacaoEstoque(data: any) {
+        try {
+            const response = await this.client.post('/estoque_movimentacao', data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== RELATÓRIOS DE ATENDIMENTO (8 métodos) ====================
+    public async getAtendimentoSobrecargaReport(dataInicial: string, dataFinal: string, filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.profissional) params.append('profissional[]', String(filters.profissional));
+            if (filters.accountUnidade) params.append('accountUnidade[]', String(filters.accountUnidade));
+
+            const response = await this.client.get(
+                `/atendimento_grafico/listar/sobrecarga/dataInicial/${dataInicial}/dataFinal/${dataFinal}`,
+                { params }
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getAtendimentoSazonalidade(dataInicial: string, dataFinal: string, filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.profissional) params.append('profissional[]', String(filters.profissional));
+            if (filters.accountUnidade) params.append('accountUnidade[]', String(filters.accountUnidade));
+
+            const response = await this.client.get(
+                `/atendimento_grafico/listar/sazonalidade/dataInicial/${dataInicial}/dataFinal/${dataFinal}`,
+                { params }
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getAtendimentoSexoPacientes(dataInicial: string, dataFinal: string, filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.profissional) params.append('profissional[]', String(filters.profissional));
+            if (filters.accountUnidade) params.append('accountUnidade[]', String(filters.accountUnidade));
+
+            const response = await this.client.get(
+                `/atendimento_grafico/listar/sexo/dataInicial/${dataInicial}/dataFinal/${dataFinal}`,
+                { params }
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getAtendimentoHorariosPico(dataInicial: string, dataFinal: string, filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.profissional) params.append('profissional[]', String(filters.profissional));
+            if (filters.accountUnidade) params.append('accountUnidade[]', String(filters.accountUnidade));
+
+            const response = await this.client.get(
+                `/atendimento_grafico/listar/pico/dataInicial/${dataInicial}/dataFinal/${dataFinal}`,
+                { params }
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getAtendimentoServicosMaisVendidos(dataInicial: string, dataFinal: string, filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.profissional) params.append('profissional[]', String(filters.profissional));
+            if (filters.accountUnidade) params.append('accountUnidade[]', String(filters.accountUnidade));
+
+            const response = await this.client.get(
+                `/atendimento_grafico/listar/servico/mais/vendido/dataInicial/${dataInicial}/dataFinal/${dataFinal}`,
+                { params }
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getAtendimentoConveniosMaisVendidos(dataInicial: string, dataFinal: string, filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.accountUnidade) params.append('accountUnidade[]', String(filters.accountUnidade));
+
+            const response = await this.client.get(
+                `/atendimento_grafico/listar/convenio/mais/vendido/dataInicial/${dataInicial}/dataFinal/${dataFinal}`,
+                { params }
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getAtendimentoQuantidades(dataInicial: string, dataFinal: string, filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.profissional) params.append('profissional[]', String(filters.profissional));
+            if (filters.accountUnidade) params.append('accountUnidade[]', String(filters.accountUnidade));
+
+            const response = await this.client.get(
+                `/atendimento_grafico/listar/agendamento/dataInicial/${dataInicial}/dataFinal/${dataFinal}`,
+                { params }
+            );
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getTotalPacientes() {
+        try {
+            const response = await this.client.get('/atendimento_grafico/abrir/total/paciente');
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== NOTAS FISCAIS (4 métodos) ====================
+    public async listNotasFiscais(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+
+            let url = '/zapp_nfse1nota/listar';
+            if (filters.dataInicial && filters.dataFinal) {
+                url = `/zapp_nfse1nota/listar/dataInicial/${filters.dataInicial}/dataFinal/${filters.dataFinal}`;
+            } else if (filters.status !== undefined) {
+                url = `/zapp_nfse1nota/listar/status/${filters.status}`;
+            }
+
+            const response = await this.client.get(url, { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getNotaFiscalEstatisticas() {
+        try {
+            const response = await this.client.get('/zapp_nfse1nota/abrir/estatistica');
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async cancelarNotaFiscal(id: string) {
+        try {
+            const response = await this.client.put(`/zapp_nfse1nota/cancelar/id/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async enviarNotaFiscalEmail(id: string) {
+        try {
+            const response = await this.client.post(`/zapp_nfse1nota/enviar/email/id/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    // ==================== COBRANÇAS NINSAÚDE PAY (3 métodos) ====================
+    public async listCobrancas(filters: any = {}) {
+        try {
+            const params = new URLSearchParams();
+            if (filters.limit) params.append('limit', String(filters.limit));
+            if (filters.offset) params.append('offset', String(filters.offset));
+
+            const response = await this.client.get('/zapp_pay1cobranca/listar', { params });
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getCobranca(cobrancaId: string) {
+        try {
+            const response = await this.client.get(`/zapp_pay1cobranca/buscar/cobranca/${cobrancaId}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public async getLinkCobranca(cobrancaId: string) {
+        try {
+            const response = await this.client.get(`/zapp_pay1cobranca/buscar/link/cobranca/${cobrancaId}`);
+            return response.data;
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
     private handleError(error: any) {
         if (axios.isAxiosError(error)) {
             console.error('API Error:', error.response?.status, error.response?.data);
