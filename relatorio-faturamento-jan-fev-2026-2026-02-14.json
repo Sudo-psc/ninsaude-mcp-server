@@ -1,0 +1,38 @@
+{
+  "periodo": "Janeiro e Fevereiro 2026",
+  "dataGeracao": "2026-02-14T23:43:18.598Z",
+  "periodos": [
+    {
+      "periodo": "Janeiro 2026",
+      "totalReceitas": 0,
+      "totalDespesas": 0,
+      "saldo": 0,
+      "receitasPorTipo": {},
+      "receitasPagas": 0,
+      "receitasPendentes": 0,
+      "totalPago": 0,
+      "totalPendente": 0,
+      "quantidadeReceitas": 0,
+      "quantidadeDespesas": 0
+    },
+    {
+      "periodo": "Fevereiro 2026",
+      "totalReceitas": 0,
+      "totalDespesas": 0,
+      "saldo": 0,
+      "receitasPorTipo": {},
+      "receitasPagas": 0,
+      "receitasPendentes": 0,
+      "totalPago": 0,
+      "totalPendente": 0,
+      "quantidadeReceitas": 0,
+      "quantidadeDespesas": 0
+    }
+  ],
+  "consolidado": {
+    "totalReceitas": 0,
+    "totalDespesas": 0,
+    "saldo": 0,
+    "margem": "N/A"
+  }
+}
