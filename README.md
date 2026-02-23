@@ -68,12 +68,24 @@ npm install
 ```
 
 ### Configuração
-Crie um arquivo `.env` com suas credenciais:
+Crie um arquivo `.env` (use o `.env.example` como base):
 ```env
 NINSAUDE_API_URL=https://api.ninsaude.com/v1
-NINSAUDE_CLIENT_ID=seu_client_id
-NINSAUDE_CLIENT_SECRET=seu_client_secret
-NINSAUDE_REFRESH_TOKEN=seu_refresh_token
+NINSAUDE_REFRESH_TOKEN=seu_refresh_token_aqui
+```
+
+> ⚠️ **Apenas o `REFRESH_TOKEN` é necessário.** O servidor autentica automaticamente via OAuth2 usando somente esse token — não é preciso `CLIENT_ID` nem `CLIENT_SECRET`.
+
+#### 🔑 Como obter o REFRESH_TOKEN
+
+1. Acesse o painel do Ninsaúde Clinic
+2. Vá em **Configurações → Integrações → API**
+3. Gere um **Refresh Token** para sua aplicação
+4. Cole o valor no `.env` como `NINSAUDE_REFRESH_TOKEN`
+
+Ou use o script auxiliar já incluído:
+```bash
+node capture-token.js
 ```
 
 ### Build
@@ -591,12 +603,20 @@ ninsaude-mcp-server/
 
 ## 🔐 Autenticação
 
-O servidor gerencia **automaticamente**:
-- OAuth2 com `refresh_token`
-- Renovação preventiva a cada **14 minutos** (token válido por 15 min)
-- Sem necessidade de login manual
+O servidor gerencia **automaticamente** toda a autenticação OAuth2. Você só precisa fornecer o `REFRESH_TOKEN` no `.env`.
+
+| Variável | Obrigatório | Descrição |
+|---|:---:|---|
+| `NINSAUDE_API_URL` | ✅ | URL base da API (padrão: `https://api.ninsaude.com/v1`) |
+| `NINSAUDE_REFRESH_TOKEN` | ✅ | Token de refresh OAuth2 gerado no painel Ninsaúde |
+
+**Como funciona internamente:**
+1. Na primeira requisição, o servidor troca o `refresh_token` por um `access_token`
+2. O `access_token` é renovado automaticamente a cada **14 minutos** (antes dos 15 min de expiração)
+3. Todas as chamadas à API são autenticadas transparentemente — sem intervenção manual
 
 ---
+
 
 ## 📈 Cobertura da API Ninsaúde
 
