@@ -1,43 +1,76 @@
-# Ninsaúde MCP Server
+# 🏥 Ninsaúde MCP Server
 
-MCP Server completo para integração com a API do Ninsaúde Clinic.
+> Servidor MCP completo para integração com a API do **Ninsaúde Clinic** — gestão inteligente de clínicas médicas via IA.
 
-## 🎉 **39 FERRAMENTAS DISPONÍVEIS** - 100% TESTADO ✅
+[![GitHub](https://img.shields.io/badge/GitHub-Sudo--psc%2Fninsaude--mcp--server-blue?logo=github)](https://github.com/Sudo-psc/ninsaude-mcp-server)
+![Ferramentas](https://img.shields.io/badge/Ferramentas-74-brightgreen)
+![Status](https://img.shields.io/badge/Status-Produção-success)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)
+
+---
+
+## 🎉 **74 FERRAMENTAS DISPONÍVEIS** ✅
 
 ### 📊 Resumo por Módulo
 
-| Módulo | Ferramentas | Status |
-|--------|-------------|--------|
-| 👥 **Pacientes** | 2 | ✅ 100% |
-| 📅 **Agendamentos** | 2 | ✅ 100% |
-| 📋 **Formulários** | 5 | ✅ 100% |
-| 💰 **Receitas** | 2 | ✅ 100% |
-| 💸 **Despesas** | 2 | ✅ 100% |
-| 📄 **Modelos de Documentos** | 1 | ✅ 100% |
-| 📊 **Relatórios Básicos** | 3 | ✅ 100% |
-| 👨‍⚕️ **Profissionais** | 3 | ✅ 100% |
-| 🏥 **Convênios** | 2 | ✅ 100% |
-| 🔬 **Serviços Médicos** | 2 | ✅ 100% |
-| 🏦 **Contas Bancárias** | 2 | ✅ 100% |
-| 📦 **Fornecedores** | 2 | ✅ 100% |
-| 🏷️ **Categorias Financeiras** | 2 | ✅ 100% |
-| 📈 **Relatórios Avançados** | 4 | ✅ 100% |
-| 📝 **Prontuários** | 3 | ✅ 100% |
-| 📊 **Produtos/Estoque** | 2 | ✅ 100% |
-| **TOTAL** | **39** | **✅ 100%** |
+| Módulo | Ferramentas | Operações |
+|--------|:-----------:|-----------|
+| 👥 **Pacientes** | 4 | Listar, buscar, criar, atualizar |
+| 📅 **Agendamentos** | 3 | Listar, criar, reagendar, cancelar |
+| 📋 **Formulários de Pesquisa** | 5 | CRUD completo |
+| 💰 **Receitas/Recebimentos** | 2 | Listar, criar |
+| 💸 **Despesas/Pagamentos** | 2 | Listar, criar |
+| 📄 **Modelos de Documentos** | 1 | Listar |
+| 📊 **Relatórios Financeiros Básicos** | 3 | Fluxo de caixa, categorias |
+| 👨‍⚕️ **Profissionais de Saúde** | 3 | Listar, buscar, agenda |
+| 🏥 **Convênios/Planos** | 2 | Listar, buscar |
+| 🔬 **Serviços Médicos** | 2 | Listar, buscar |
+| 🏦 **Contas Bancárias** | 2 | Listar, saldo |
+| 📦 **Fornecedores** | 2 | Listar, criar |
+| 🏷️ **Categorias Financeiras** | 2 | Listar receita/despesa |
+| 📈 **Relatórios Avançados** | 4 | Tipo de pagamento, inadimplência, profissional, convênio |
+| 📝 **Prontuários Médicos** | 4 | Listar, buscar, criar, atualizar |
+| 📦 **Produtos/Estoque Básico** | 2 | Listar produtos, nível de estoque |
+| 🔄 **Títulos de Transferência** | 3 | Listar, buscar, adicionar lote |
+| 💊 **Medicamentos** | 2 | Listar, buscar (base central) |
+| 💊 **Prescrições do Prontuário** | 4 | CRUD completo |
+| 🧪 **Medicamentos da Prescrição** | 3 | Listar, adicionar, remover |
+| 📓 **Notas do Prontuário** | 4 | CRUD completo |
+| 🤧 **Alergias** | 4 | CRUD completo |
+| 🗂️ **Documentos do Prontuário** | 2 | Listar, buscar |
+| 🔀 **Encaminhadores** | 3 | Listar, buscar, criar |
+| 🚪 **Salas da Clínica** | 2 | Listar, buscar |
+| 💳 **Tipos de Pagamento** | 2 | Listar, buscar |
+| 🩺 **Especialidades Médicas** | 1 | Listar |
+| 🏷️ **CID-10** | 2 | Buscar por código/descrição |
+| 🗺️ **Cidades / CEP** | 2 | Buscar CEP, listar cidades |
+| 💱 **Transferências Financeiras** | 3 | Listar, criar, buscar |
+| 🏗️ **Depósitos de Estoque** | 2 | Listar, buscar |
+| 📦 **Movimentações de Estoque** | 2 | Listar, criar |
+| 📊 **Relatórios de Atendimento** | 8 | Sobrecarga, sazonalidade, sexo, pico, serviços, convênios, quantidades, totais |
+| 🧾 **Notas Fiscais (NFS-e)** | 4 | Listar, cancelar, enviar e-mail, estatísticas |
+| 💰 **Cobranças Ninsaúde Pay** | 3 | Listar, buscar, link de pagamento |
+| **TOTAL** | **74** | |
 
 ---
 
 ## 🚀 Início Rápido
 
+### Pré-requisitos
+- Node.js 18+
+- Conta ativa no Ninsaúde Clinic com acesso à API
+
 ### Instalação
 ```bash
+git clone https://github.com/Sudo-psc/ninsaude-mcp-server.git
+cd ninsaude-mcp-server
 npm install
 ```
 
 ### Configuração
 Crie um arquivo `.env` com suas credenciais:
 ```env
+NINSAUDE_API_URL=https://api.ninsaude.com/v1
 NINSAUDE_CLIENT_ID=seu_client_id
 NINSAUDE_CLIENT_SECRET=seu_client_secret
 NINSAUDE_REFRESH_TOKEN=seu_refresh_token
@@ -50,343 +83,469 @@ npm run build
 
 ### Executar
 ```bash
-node dist/index.ts
+node dist/index.js
 ```
 
-### Testar Todas as Ferramentas
-```bash
-node test-39-tools.js
+### Configurar no Claude Desktop / Cursor
+Adicione ao `claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
+    "ninsaude": {
+      "command": "node",
+      "args": ["/caminho/para/ninsaude-mcp-server/dist/index.js"]
+    }
+  }
+}
 ```
 
 ---
 
 ## 📚 Ferramentas Disponíveis
 
-### 1. 👥 **PACIENTES** (2 ferramentas)
+### 1. 👥 Pacientes (4 ferramentas)
 
-#### `list_patients` - Listar pacientes
+| Ferramenta | Descrição |
+|---|---|
+| `list_patients` | Listar pacientes com filtros |
+| `get_patient` | Buscar paciente por ID |
+| `create_patient` | Criar novo paciente |
+| `update_patient` | Atualizar dados do paciente |
+
 ```javascript
+// Exemplo: listar pacientes
+{ limit: 10, nomeExato: "Maria Silva", cpf: "12345678900" }
+
+// Exemplo: criar paciente
 {
-  limit: 10,
-  offset: 0,
-  nome: "João",
+  nome: "João da Silva",
   cpf: "12345678900",
-  dataNascimento: "1990-01-01"
+  dataNascimento: "1990-01-15",
+  sexo: "M",
+  email: "joao@email.com",
+  foneCelular: "(31) 99999-1234"
 }
-```
-
-#### `get_patient` - Obter detalhes do paciente
-```javascript
-{ id: 123 }
 ```
 
 ---
 
-### 2. 📅 **AGENDAMENTOS** (2 ferramentas)
+### 2. 📅 Agendamentos (3 ferramentas)
 
-#### `list_appointments` - Listar agendamentos
+| Ferramenta | Descrição |
+|---|---|
+| `list_appointments` | Listar agendamentos |
+| `create_agendamento` | Criar novo agendamento |
+| `update_agendamento` | Reagendar consulta |
+| `cancel_agendamento` | Cancelar agendamento |
+
 ```javascript
+// Listar agendamentos do dia
 {
-  dataInicial: "2026-02-01",
-  dataFinal: "2026-02-28",
-  status: [0, 2], // 0=Agendado, 2=Confirmado
-  profissional: [1],
-  limit: 10
+  dataInicial: "2026-02-23",
+  dataFinal: "2026-02-23",
+  status: 4 // 0=Agendado,1=Espera,2=Conf,3=Atend,4=Atendido,5=Cancel
 }
 ```
 
-#### `create_agendamento` - Criar agendamento 🆕
+---
+
+### 3. 📋 Formulários de Pesquisa (5 ferramentas)
+
+- `list_surveys` — Listar formulários
+- `get_survey` — Buscar por ID
+- `create_survey` — Criar formulário
+- `update_survey` — Atualizar formulário
+- `delete_survey` — Excluir formulário
+
+---
+
+### 4. 💰 Receitas/Recebimentos (2 ferramentas)
+
+| Ferramenta | Descrição |
+|---|---|
+| `list_receitas` | Listar com filtros de data |
+| `create_receita` | Registrar recebimento |
+
+```javascript
+// Receitas de hoje
+{
+  dataPagamentoInicial: "2026-02-23",
+  dataPagamentoFinal: "2026-02-23"
+}
+```
+
+---
+
+### 5. 💸 Despesas/Pagamentos (2 ferramentas)
+
+- `list_despesas` — Listar despesas
+- `create_despesa` — Registrar despesa
+
+---
+
+### 6. 📊 Relatórios Financeiros (7 ferramentas)
+
+| Ferramenta | Descrição |
+|---|---|
+| `get_fluxo_caixa_report` | Fluxo de caixa por período |
+| `get_categoria_receita_report` | Receitas por categoria |
+| `get_categoria_despesa_report` | Despesas por categoria |
+| `get_tipo_pagamento_report` | Por forma de pagamento (PIX, cartão, dinheiro...) |
+| `get_inadimplencia_report` | Pagamentos em atraso |
+| `get_profissional_report` | Faturamento por médico |
+| `get_convenio_report` | Faturamento por convênio |
+
+```javascript
+// Todos usam:
+{ dataInicial: "2026-02-01", dataFinal: "2026-02-28", accountUnidade: 1 }
+```
+
+---
+
+### 7. 👨‍⚕️ Profissionais de Saúde (3 ferramentas)
+
+- `list_profissionais` — Listar com filtros
+- `get_profissional` — Buscar por ID
+- `list_profissional_agenda` — Grade de horários
+
+---
+
+### 8. 🏥 Convênios/Planos de Saúde (2 ferramentas)
+
+- `list_convenios` — Listar convênios
+- `get_convenio` — Buscar por ID
+
+---
+
+### 9. 🔬 Serviços Médicos (2 ferramentas)
+
+- `list_servicos` — Listar serviços/procedimentos
+- `get_servico` — Buscar por ID
+
+---
+
+### 10. 🏦 Contas Bancárias (2 ferramentas)
+
+- `list_contas` — Listar contas cadastradas
+- `get_conta_saldo` — Saldo atual de todas as contas
+
+---
+
+### 11. 📦 Fornecedores (2 ferramentas)
+
+- `list_fornecedores` — Listar fornecedores
+- `create_fornecedor` — Cadastrar fornecedor
+
+---
+
+### 12. 🏷️ Categorias Financeiras (2 ferramentas)
+
+- `list_categorias_receita` — Categorias de receita
+- `list_categorias_despesa` — Categorias de despesa
+
+---
+
+### 13. 📝 Prontuários Médicos (4 ferramentas)
+
+- `list_prontuarios` — Listar prontuários
+- `get_prontuario` — Buscar por ID
+- `create_prontuario` — Criar prontuário com queixa, diagnóstico, conduta
+- `update_prontuario` — Atualizar prontuário
+
+---
+
+### 14. 💊 Prescrições do Prontuário (4 ferramentas)
+
+| Ferramenta | Descrição |
+|---|---|
+| `list_prontuario_prescricoes` | Listar prescrições |
+| `get_prontuario_prescricao` | Buscar por ID |
+| `create_prontuario_prescricao` | Criar prescrição |
+| `update_prontuario_prescricao` | Atualizar prescrição |
+
+```javascript
+// Criar prescrição vinculada ao prontuário
+{
+  prontuario: 456,
+  descricao: "Receituário do dia",
+  tipo: 0 // 0=Simples, 1=Controle especial
+}
+```
+
+---
+
+### 15. 🧪 Medicamentos da Prescrição (3 ferramentas)
+
+- `list_prescricao_medicamentos` — Listar itens
+- `create_prescricao_medicamento` — Adicionar medicamento
+- `delete_prescricao_medicamento` — Remover medicamento
+
+```javascript
+// Adicionar medicamento à prescrição
+{
+  prescricao: 789,
+  medicamento: 1234, // ID da base central
+  posologia: "1 gota 3x ao dia",
+  quantidade: 1,
+  unidade: "frasco"
+}
+```
+
+---
+
+### 16. 📓 Notas do Prontuário (4 ferramentas)
+
+- `list_prontuario_notas` — Listar notas clínicas
+- `create_prontuario_nota` — Criar nota
+- `update_prontuario_nota` — Editar nota
+- `delete_prontuario_nota` — Excluir nota
+
+---
+
+### 17. 🤧 Alergias do Paciente (4 ferramentas)
+
+- `list_alergias` — Listar alergias
+- `create_alergia` — Registrar alergia
+- `update_alergia` — Atualizar alergia
+- `delete_alergia` — Remover alergia
+
 ```javascript
 {
-  accountUnidade: 1,
-  profissional: 1,
-  data: "2026-02-17",
-  horaInicial: "14:00:00",
-  horaFinal: "14:30:00",
   paciente: 123,
-  servico: 1,
-  especialidade: 5,
-  status: 0, // 0=Agendado, 2=Confirmado
-  observacao: "Consulta de rotina"
+  descricao: "Dipirona",
+  tipo: 0,     // 0=Medicamento,1=Alimento,2=Ambiente,3=Outro
+  gravidade: 2 // 0=Leve,1=Moderada,2=Grave
 }
 ```
 
 ---
 
-### 3. 📋 **FORMULÁRIOS DE PESQUISA** (5 ferramentas)
+### 18. 🗂️ Documentos do Prontuário (2 ferramentas)
 
-- `list_surveys` - Listar formulários
-- `get_survey` - Obter formulário
-- `create_survey` - Criar formulário
-- `update_survey` - Atualizar formulário
-- `delete_survey` - Excluir formulário
+- `list_prontuario_documentos` — Listar documentos (exames, atestados)
+- `get_prontuario_documento` — Buscar por ID
 
 ---
 
-### 4. 💰 **RECEITAS/RECEBIMENTOS** (2 ferramentas)
+### 19. 🔀 Encaminhadores (3 ferramentas)
 
-#### `list_receitas` - Listar receitas
+- `list_encaminhadores` — Listar médicos encaminhadores
+- `get_encaminhador` — Buscar por ID
+- `create_encaminhador` — Cadastrar encaminhador
+
+---
+
+### 20. 🚪 Salas da Clínica (2 ferramentas)
+
+- `list_salas` — Listar salas de atendimento
+- `get_sala` — Buscar sala por ID
+
+---
+
+### 21. 💳 Tipos de Pagamento (2 ferramentas)
+
+- `list_tipos_pagamento` — PIX, cartão, dinheiro, cheque, etc.
+- `get_tipo_pagamento` — Buscar por ID
+
+---
+
+### 22. 🩺 Especialidades Médicas (1 ferramenta)
+
+- `list_especialidades` — Listar especialidades (Oftalmologia, Cardiologia, etc.)
+
+---
+
+### 23. 🏷️ CID-10 (2 ferramentas)
+
+- `list_cid` — Buscar doenças por código ou descrição
+- `get_cid` — Detalhes de um CID específico
+
+```javascript
+// Buscar diagnósticos
+{ descricao: "diabetes" }    // por nome
+{ codigo: "E11" }            // por código CID
+```
+
+---
+
+### 24. 🗺️ Cidades / CEP (2 ferramentas)
+
+- `buscar_endereco_por_cep` — Retorna logradouro, bairro, cidade pelo CEP
+- `list_cidades` — Listar cidades por estado/país
+
+```javascript
+{ cep: "01310100" } // Sem traços
+```
+
+---
+
+### 25. 💱 Transferências Financeiras (3 ferramentas)
+
+- `list_transferencias` — Listar transferências entre contas
+- `create_transferencia` — Realizar transferência
+- `get_transferencia` — Buscar por ID
+
 ```javascript
 {
-  limit: 10,
-  dataVencimentoInicial: "2026-02-01",
-  dataVencimentoFinal: "2026-02-28"
+  contaOrigem: 1,
+  contaDestino: 3,
+  valor: 500.00,
+  data: "2026-02-23",
+  observacao: "Sangria do caixa"
 }
 ```
 
-#### `create_receita` - Criar receita
+---
+
+### 26. 🏗️ Depósitos de Estoque (2 ferramentas)
+
+- `list_depositos` — Listar almoxarifados/depósitos
+- `get_deposito` — Buscar por ID
+
+---
+
+### 27. 📦 Movimentações de Estoque (2 ferramentas)
+
+- `list_movimentacoes_estoque` — Listar entradas/saídas/transferências
+- `create_movimentacao_estoque` — Registrar movimentação
+
 ```javascript
 {
-  accountUnidade: 1,
-  conta: 1,
-  categoria: 4,
-  tipoPagto: 7, // 7=Pix
-  dataVencto: "2026-02-14",
-  dataEmissao: "2026-02-14",
-  dataPagamento: "2026-02-14",
-  valor: 150.00,
-  valorTotal: 150.00,
-  recibo: 2,
-  pago: 1,
-  observacao: "Consulta"
+  produto: 10,
+  quantidade: 5,
+  tipo: 0,          // 0=Entrada, 1=Saída, 2=Transferência
+  data: "2026-02-23",
+  depositoDestino: 1
 }
 ```
 
 ---
 
-### 5. 💸 **DESPESAS/PAGAMENTOS** (2 ferramentas)
+### 28. 📊 Relatórios de Atendimento (8 ferramentas)
 
-- `list_despesas` - Listar despesas
-- `create_despesa` - Criar despesa
+| Ferramenta | Descrição |
+|---|---|
+| `get_atendimento_sobrecarga_report` | Carga de trabalho por profissional |
+| `get_atendimento_sazonalidade` | Tendências mensais/semanais |
+| `get_atendimento_sexo_pacientes` | Distribuição de gênero |
+| `get_atendimento_horarios_pico` | Horários com maior demanda |
+| `get_atendimento_servicos_mais_vendidos` | Serviços mais realizados |
+| `get_atendimento_convenios_mais_vendidos` | Convênios mais utilizados |
+| `get_atendimento_quantidades` | Atendidos, faltas, cancelamentos |
+| `get_total_pacientes` | Totais gerais de pacientes |
 
----
-
-### 6. 📄 **MODELOS DE DOCUMENTOS** (1 ferramenta)
-
-#### `list_document_modelos` - Listar modelos
 ```javascript
-{
-  limit: 10,
-  tipo: 0, // 0=Receituário, 1=Atestado, 4=Recibos
-  lingua: "pt-BR"
-}
+// Todos usam (exceto get_total_pacientes):
+{ dataInicial: "2026-02-01", dataFinal: "2026-02-28", profissional: 1 }
 ```
 
 ---
 
-### 7. 📊 **RELATÓRIOS FINANCEIROS BÁSICOS** (3 ferramentas)
+### 29. 🧾 Notas Fiscais NFS-e (4 ferramentas)
 
-- `get_fluxo_caixa_report` - Fluxo de caixa
-- `get_categoria_receita_report` - Receitas por categoria
-- `get_categoria_despesa_report` - Despesas por categoria
-
----
-
-### 8. 👨‍⚕️ **PROFISSIONAIS DE SAÚDE** (3 ferramentas) 🆕
-
-#### `list_profissionais` - Listar profissionais
-```javascript
-{
-  limit: 10,
-  nome: "Dr. João",
-  especialidade: 5,
-  ativo: 1,
-  accountUnidade: 1
-}
-```
-
-#### `get_profissional` - Obter profissional
-```javascript
-{ id: "1" }
-```
-
-#### `list_profissional_agenda` - Grade de horários
-```javascript
-{
-  profissional: 1,
-  diaSemana: 1 // 0=Domingo, 1=Segunda, ..., 6=Sábado
-}
-```
+- `list_notas_fiscais` — Listar NFS-e (por data ou status)
+- `get_nota_fiscal_estatisticas` — Totais e valores emitidos
+- `cancelar_nota_fiscal` — Cancelar NFS-e por ID
+- `enviar_nota_fiscal_email` — Enviar NFS-e por e-mail
 
 ---
 
-### 9. 🏥 **CONVÊNIOS/PLANOS DE SAÚDE** (2 ferramentas) 🆕
+### 30. 💰 Cobranças Ninsaúde Pay (3 ferramentas)
 
-#### `list_convenios` - Listar convênios
-```javascript
-{
-  limit: 10,
-  descricao: "Unimed",
-  ativo: 1
-}
-```
-
-#### `get_convenio` - Obter convênio
-```javascript
-{ id: "1" }
-```
+- `list_cobrancas` — Listar cobranças/boletos
+- `get_cobranca` — Buscar cobrança por ID
+- `get_link_cobranca` — Obter link de pagamento para compartilhar
 
 ---
 
-### 10. 🔬 **SERVIÇOS MÉDICOS** (2 ferramentas) 🆕
+### 31. 💊 Medicamentos Base Central (2 ferramentas)
 
-#### `list_servicos` - Listar serviços
-```javascript
-{
-  limit: 10,
-  descricao: "Consulta",
-  especialidade: 5,
-  ativo: 1
-}
-```
-
-#### `get_servico` - Obter serviço
-```javascript
-{ id: "1" }
-```
+- `list_medicamentos` — Buscar na base de medicamentos (somente leitura)
+- `get_medicamento` — Detalhes de um medicamento
 
 ---
 
-### 11. 🏦 **CONTAS BANCÁRIAS** (2 ferramentas) 🆕
+### 32. 🔄 Títulos de Transferência (3 ferramentas)
 
-#### `list_contas` - Listar contas
-```javascript
-{
-  limit: 10,
-  ativo: 1
-}
-```
-
-#### `get_conta_saldo` - Saldo das contas
-```javascript
-{} // Sem parâmetros
-```
-
----
-
-### 12. 📦 **FORNECEDORES** (2 ferramentas) 🆕
-
-#### `list_fornecedores` - Listar fornecedores
-```javascript
-{
-  limit: 10,
-  nomeFantasia: "Farmácia ABC",
-  ativo: 1
-}
-```
-
-#### `create_fornecedor` - Criar fornecedor
-```javascript
-{
-  nomeFantasia: "Farmácia Nova",
-  telefone: "(31) 3333-4444",
-  email: "contato@farmacia.com",
-  cnpj: "12.345.678/0001-99"
-}
-```
-
----
-
-### 13. 🏷️ **CATEGORIAS FINANCEIRAS** (2 ferramentas) 🆕
-
-- `list_categorias_receita` - Categorias de receita
-- `list_categorias_despesa` - Categorias de despesa
-
----
-
-### 14. 📈 **RELATÓRIOS AVANÇADOS** (4 ferramentas) 🆕
-
-#### `get_tipo_pagamento_report` - Por tipo de pagamento
-Ver distribuição de receitas por forma de pagamento (Pix, cartão, dinheiro, etc.)
-
-#### `get_inadimplencia_report` - Inadimplência
-Identificar pagamentos atrasados e em aberto.
-
-#### `get_profissional_report` - Por profissional
-Receitas geradas por cada médico/dentista.
-
-#### `get_convenio_report` - Por convênio
-Receitas por plano de saúde.
-
-```javascript
-// Todos os relatórios usam:
-{
-  dataInicial: "2026-02-01",
-  dataFinal: "2026-02-28",
-  accountUnidade: 1 // opcional
-}
-```
-
----
-
-### 15. 📝 **PRONTUÁRIOS MÉDICOS** (3 ferramentas) 🆕
-
-- `list_prontuarios` - Listar prontuários
-- `get_prontuario` - Obter prontuário
-- `create_prontuario` - Criar prontuário
-
----
-
-### 16. 📊 **PRODUTOS/ESTOQUE** (2 ferramentas) 🆕
-
-- `list_produtos` - Listar produtos
-- `get_produto_estoque` - Nível de estoque
+- `list_titulos_transferencias` — Listar títulos de conciliação
+- `get_titulo_transferencia` — Buscar por ID
+- `add_titulos_lote` — Adicionar títulos em lote
 
 ---
 
 ## 💡 Exemplos de Uso
 
-### Dashboard Financeiro Completo
+### 🩺 Fluxo Clínico Completo
 ```javascript
-const periodo = {
-  dataInicial: "2026-02-01",
-  dataFinal: "2026-02-28",
-  accountUnidade: 1
-};
+// 1. Buscar paciente
+const paciente = await list_patients({ nomeExato: "Maria Silva" });
 
-// Obter todos os dados
+// 2. Verificar alergias
+const alergias = await list_alergias({ paciente: paciente.result[0].id });
+
+// 3. Criar prontuário
+const prontuario = await create_prontuario({
+  paciente: paciente.result[0].id,
+  profissional: 1,
+  data: "2026-02-23",
+  hora: "14:30:00",
+  queixaPrincipal: "Olho seco e ardência",
+  diagnostico: "Ceratoconjuntivite seca",
+  conduta: "Lubrificante ocular 4x/dia"
+});
+
+// 4. Criar prescrição
+const prescricao = await create_prontuario_prescricao({
+  prontuario: prontuario.result.id,
+  descricao: "Receituário Simples"
+});
+
+// 5. Adicionar medicamento
+await create_prescricao_medicamento({
+  prescricao: prescricao.result.id,
+  descricao: "Colírio Lacrifilm",
+  posologia: "1 gota em cada olho, 4x ao dia",
+  quantidade: 1,
+  unidade: "frasco"
+});
+```
+
+### 📊 Dashboard Financeiro do Dia
+```javascript
+const hoje = "2026-02-23";
+
 const dashboard = {
-  // Saldos
-  saldos: await get_conta_saldo({}),
-  
-  // Fluxo de caixa
-  fluxoCaixa: await get_fluxo_caixa_report(periodo),
-  
-  // Análises
-  receitasPorCategoria: await get_categoria_receita_report(periodo),
-  despesasPorCategoria: await get_categoria_despesa_report(periodo),
-  receitasPorTipoPagamento: await get_tipo_pagamento_report(periodo),
-  receitasPorProfissional: await get_profissional_report(periodo),
-  receitasPorConvenio: await get_convenio_report(periodo),
-  inadimplencia: await get_inadimplencia_report(periodo)
+  receitas: await list_receitas({
+    dataPagamentoInicial: hoje,
+    dataPagamentoFinal: hoje
+  }),
+  despesas: await list_despesas({
+    dataPagamentoInicial: hoje,
+    dataPagamentoFinal: hoje
+  }),
+  fluxo: await get_fluxo_caixa_report({
+    dataInicial: hoje,
+    dataFinal: hoje
+  }),
+  tipoPagamento: await get_tipo_pagamento_report({
+    dataInicial: hoje,
+    dataFinal: hoje
+  }),
+  saldos: await get_conta_saldo({})
 };
 ```
 
-### Sistema de Agendamento
+### 📅 Sistema de Agendamento
 ```javascript
-// 1. Listar profissionais disponíveis
-const profissionais = await list_profissionais({
-  especialidade: 5,
-  ativo: 1
+// Verificar agenda do dia e horários de pico
+const agendamentos = await list_appointments({
+  dataInicial: "2026-02-23",
+  dataFinal: "2026-02-23"
 });
 
-// 2. Ver agenda do profissional
-const agenda = await list_profissional_agenda({
-  profissional: profissionais.result[0].id,
-  diaSemana: 1 // Segunda-feira
-});
-
-// 3. Criar agendamento
-const agendamento = await create_agendamento({
-  accountUnidade: 1,
-  profissional: profissionais.result[0].id,
-  data: "2026-02-17",
-  horaInicial: "14:00:00",
-  horaFinal: "14:30:00",
-  paciente: 123,
-  servico: 1,
-  especialidade: 5,
-  status: 2 // Confirmado
+const pico = await get_atendimento_horarios_pico({
+  dataInicial: "2026-01-01",
+  dataFinal: "2026-02-23"
 });
 ```
 
@@ -394,69 +553,87 @@ const agendamento = await create_agendamento({
 
 ## 🧪 Testes
 
-### Teste Completo (39 ferramentas)
 ```bash
+# Teste completo das ferramentas
 node test-39-tools.js
-```
 
-### Testes Individuais
-```bash
-node test-financial.js        # Módulo financeiro
-node test-new-features.js     # Modelos e relatórios
-node test-all-tools.js        # Teste das 16 primeiras ferramentas
+# Módulo financeiro
+node test-financial.js
+
+# Criar receita/despesa de teste
+node test-create-financial.js
+
+# Formulários de pesquisa
+node test-surveys.js
+node test-crud-surveys.js
 ```
 
 ---
 
-## 📁 Documentação Adicional
-
-- `FUNCIONALIDADES.md` - Detalhes dos formulários
-- `FINANCEIRO.md` - Guia completo do módulo financeiro
-- `MODELOS_E_RELATORIOS.md` - Documentação de modelos e relatórios
-- `SUGESTOES_NOVAS_FERRAMENTAS.md` - Análise das 23 novas ferramentas
-- `RESUMO_COMPLETO.md` - Resumo executivo do projeto
-
----
-
-## 🎯 Status do Projeto
+## 📁 Estrutura do Projeto
 
 ```
-✅ 39 ferramentas implementadas
-✅ 100% testado e funcional
-✅ Documentação completa
-✅ Autenticação automática com refresh token
-✅ Gestão completa de clínicas médicas
+ninsaude-mcp-server/
+├── src/
+│   ├── index.ts          # Servidor MCP (74 ferramentas)
+│   └── api.ts            # Cliente da API Ninsaúde
+├── lib/
+│   └── auth.js           # Módulo de autenticação
+├── dist/                 # Build TypeScript compilado
+├── .env                  # Credenciais (não versionado)
+├── .env.example          # Template de credenciais
+├── generate-billing-report.js  # Script de relatório de faturamento
+├── capture-token.js      # Capturar token OAuth2
+└── README.md
 ```
-
-### Cobertura da API Ninsaúde
-- **Ferramentas disponíveis**: 39
-- **Endpoints utilizados**: ~50
-- **Cobertura estimada**: 50% da API do Ninsaúde
 
 ---
 
 ## 🔐 Autenticação
 
-O servidor gerencia automaticamente:
-- Token OAuth2
-- Renovação automática (a cada 14 minutos)
-- Refresh token configurado no `.env`
+O servidor gerencia **automaticamente**:
+- OAuth2 com `refresh_token`
+- Renovação preventiva a cada **14 minutos** (token válido por 15 min)
+- Sem necessidade de login manual
 
 ---
 
-## 🏆 Conquistas
+## 📈 Cobertura da API Ninsaúde
 
-- ✅ **16 ferramentas iniciais** - Pacientes, Agendamentos, Formulários, Financeiro, Relatórios
-- ✅ **23 novas ferramentas** - Profissionais, Convênios, Serviços, Contas, Fornecedores, Categorias, Relatórios Avançados, Prontuários, Estoque
-- ✅ **100% de testes passando**
-- ✅ **Documentação completa e exemplos práticos**
+| Métrica | Valor |
+|---|---|
+| Ferramentas implementadas | **74** |
+| Módulos cobertos | **35** |
+| Endpoints utilizados | ~90 |
+| Recursos da API explorados | 292 disponíveis na coleção |
 
 ---
 
-## 📞 Suporte
+## 📞 Documentação Adicional
 
-Para mais informações sobre a API do Ninsaúde, consulte a documentação oficial.
+| Arquivo | Conteúdo |
+|---|---|
+| `FUNCIONALIDADES.md` | Detalhes dos formulários de pesquisa |
+| `FINANCEIRO.md` | Guia do módulo financeiro |
+| `MODELOS_E_RELATORIOS.md` | Modelos de documentos e relatórios |
+| `MEDICAMENTOS.md` | Integração com base de medicamentos |
+| `MODO_PRESCRICAO_BRITENS.md` | Modelo de prescrição Britens |
+| `RESUMO_COMPLETO.md` | Resumo executivo |
 
-**Versão**: 2.0.0  
-**Data**: Fevereiro 2026  
-**Status**: ✅ Produção - 39 Ferramentas Ativas
+---
+
+## 🏆 Histórico de Versões
+
+| Versão | Ferramentas | Novidades |
+|---|---|---|
+| v1.0 | 16 | Pacientes, Agendamentos, Financeiro básico |
+| v1.5 | 23 | Prontuários, Estoque, Relatórios básicos |
+| v2.0 | 39 | Profissionais, Convênios, Fornecedores, Relatórios avançados |
+| v2.5 | 43 | Medicamentos, Títulos de transferência |
+| **v3.0** | **74** | **Prescrições, Alergias, NFS-e, Pay, Analytics de Atendimento, CID, CEP** |
+
+---
+
+**Versão**: 3.0.0  
+**Atualizado**: Fevereiro 2026  
+**Status**: ✅ Produção — 74 Ferramentas Ativas
