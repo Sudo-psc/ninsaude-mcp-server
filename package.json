@@ -1,15 +1,20 @@
 {
   "name": "ninsaude-mcp-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "3.0.0",
+  "description": "MCP Server for Ninsaúde Clinic API — 74 tools",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "inspect": "node --inspect dist/index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "mcp",
+    "ninsaude",
+    "clinic",
+    "healthcare"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
@@ -17,8 +22,7 @@
     "@modelcontextprotocol/sdk": "^1.26.0",
     "axios": "^1.13.5",
     "dotenv": "^17.3.1",
-    "zod": "^4.3.6",
-    "zod-to-json-schema": "^3.25.1"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^25.2.3",

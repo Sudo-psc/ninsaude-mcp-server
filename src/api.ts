@@ -72,12 +72,12 @@ export class NinsaudeAPI {
 
     public async listPatients(filters: any = {}) {
         try {
-            // Convert filters to query params
             const params = new URLSearchParams();
             if (filters.limit) params.append('limit', String(filters.limit));
             if (filters.offset) params.append('offset', String(filters.offset));
             if (filters.nomeExato) params.append('nomeExato', filters.nomeExato);
             if (filters.cpf) params.append('cpf', filters.cpf);
+            if (filters.dataNascimento) params.append('dataNascimento', filters.dataNascimento);
             // Default active to 1 unless specified
             if (filters.ativo !== undefined) params.append('ativo', String(filters.ativo));
             else params.append('ativo', '1');
@@ -121,8 +121,10 @@ export class NinsaudeAPI {
             const params = new URLSearchParams();
             if (filters.dataInicial) params.append('dataInicial', filters.dataInicial);
             if (filters.dataFinal) params.append('dataFinal', filters.dataFinal);
-            if (filters.status) params.append('status', String(filters.status));
-            if (filters.profissional) params.append('profissional', String(filters.profissional));
+            // status can be 0 (falsy) so use !== undefined
+            if (filters.status !== undefined) params.append('status', String(filters.status));
+            if (filters.profissional) params.append('profissional[]', String(filters.profissional));
+            if (filters.paciente) params.append('paciente[]', String(filters.paciente));
             if (filters.limit) params.append('limit', String(filters.limit));
             if (filters.offset) params.append('offset', String(filters.offset));
 

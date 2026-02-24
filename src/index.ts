@@ -1,7 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
-import { NinsaudeAPI } from './api.js';
+import { NinsaudeAPI } from './api';
 
 const api = new NinsaudeAPI();
 
@@ -117,6 +117,11 @@ server.registerTool('update_agendamento', {
         observacao: z.string().optional().describe('Notes'),
     },
 }, async ({ id, ...data }) => ok(await api.updateAgendamento(id, data)));
+
+server.registerTool('cancel_agendamento', {
+    description: 'Cancel an appointment by ID (sets status to 5=Cancelled)',
+    inputSchema: { id: z.string().describe('Appointment ID') },
+}, async ({ id }) => ok(await api.cancelAgendamento(id)));
 
 // ════════════════════════════════════════════════════════
 // 3. FORMULÁRIOS DE PESQUISA (SURVEYS)
