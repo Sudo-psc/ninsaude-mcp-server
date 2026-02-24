@@ -160,7 +160,7 @@ export class NinsaudeAPI {
         }
     }
 
-    public async createSurvey(data: { descricao: string; ativo: number }) {
+    public async createSurvey(data: any) {
         try {
             const response = await this.client.post('/zapp_pesquisa1', data);
             return response.data;
@@ -169,7 +169,7 @@ export class NinsaudeAPI {
         }
     }
 
-    public async updateSurvey(id: string, data: { descricao: string; ativo: number }) {
+    public async updateSurvey(id: string, data: any) {
         try {
             const response = await this.client.put(`/zapp_pesquisa1/${id}`, data);
             return response.data;
